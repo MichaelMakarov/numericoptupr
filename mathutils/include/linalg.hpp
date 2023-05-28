@@ -6,7 +6,9 @@ class vector;
 class matrix
 {
     void *_ptr;
-    std::size_t _rows, _cols;
+
+    void clear();
+    void copy(matrix const &);
 
 public:
     matrix() noexcept;
@@ -16,10 +18,18 @@ public:
     ~matrix();
     matrix &operator=(matrix const &);
     matrix &operator=(matrix &&) noexcept;
-    std::size_t rows() const { return _rows; }
-    std::size_t columns() const { return _cols; }
+    std::size_t rows() const;
+    std::size_t columns() const;
     double *operator[](std::size_t row);
     double const *operator[](std::size_t row) const;
+
+    friend matrix operator+(matrix const &, matrix const &);
+    friend matrix operator-(matrix const &, matrix const &);
+    friend matrix operator*(matrix const &, matrix const &);
+    friend matrix operator*(matrix const &, double);
+    friend matrix operator/(matrix const &, double);
+    friend vector operator*(matrix const &, vector const &);
+    friend matrix inverse(matrix const &);
 
     friend vector solve(matrix const &mx, vector const &vc);
 };
@@ -27,7 +37,9 @@ public:
 class vector
 {
     void *_ptr;
-    std::size_t _size;
+
+    void clear();
+    void copy(vector const &);
 
 public:
     vector() noexcept;
@@ -37,9 +49,16 @@ public:
     ~vector();
     vector &operator=(vector const &);
     vector &operator=(vector &&) noexcept;
-    std::size_t size() const { return _size; }
+    std::size_t size() const;
     double &operator[](std::size_t i);
     double operator[](std::size_t i) const;
+
+    friend vector operator+(vector const &, vector const &);
+    friend vector operator-(vector const &, vector const &);
+    friend vector operator*(vector const &, double);
+    friend vector operator/(vector const &, double);
+    friend vector operator*(matrix const &, vector const &);
+    friend double operator*(vector const &, vector const &);
 
     friend vector solve(matrix const &mx, vector const &vc);
 };

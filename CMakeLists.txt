@@ -17,4 +17,5 @@ find_package(GSL REQUIRED)
 subdirs(
     mathutils
     task1
+    task2
 )

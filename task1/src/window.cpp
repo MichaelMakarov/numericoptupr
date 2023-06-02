@@ -14,7 +14,7 @@
 constexpr double x0def{4};
 constexpr double t0def{0};
 constexpr double tkdef{10};
-constexpr double dtdef{0.5};
+constexpr double dtdef{0.05};
 constexpr std::size_t maxiterdef{100};
 
 using namespace QtCharts;
@@ -207,7 +207,7 @@ appwindow::appwindow()
     auto spb_dt = new QDoubleSpinBox;
     spb_dt->setValue(dtdef);
     spb_dt->setSingleStep(1e-1);
-    spb_dt->setMinimum(1e-1);
+    spb_dt->setMinimum(1e-2);
     spb_dt->setMaximum(spb_interval->value());
     spb_dt->setFixedSize(btnwidth, btnheight);
     auto spb_x0 = new QDoubleSpinBox;

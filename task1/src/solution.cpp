@@ -61,7 +61,8 @@ auto make_nodes(double x0, double t0, double tk, double dt)
     std::vector<node> nodes(count);
     auto &first = nodes.front();
     first.x = x0;
-    first.u = -sign(x0);
+    first.u = 0;
+    //-sign(x0);
     first.t = t0;
     for (std ::size_t i{1}; i < nodes.size(); ++i)
     {
@@ -106,8 +107,8 @@ solution solve(double x0, double t0, double tk, double dt, double eps, std::size
         }
         for (auto &n : sol.nodes)
         {
-            n.u += 1e-2 * n.p;
-            n.u = std::min(1., std::max(-1., n.u));
+            n.u = n.p > 0 ? 1 : -1;
+            // n.u = std::min(1., std::max(-1., n.u));
         }
         prev = curr;
     }

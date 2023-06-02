@@ -294,15 +294,15 @@ vector operator*(matrix const &left, vector const &right)
     return result;
 }
 
-// vector solve(matrix const &mx, vector const &vc)
-// {
-//     vector rs(vc._size);
-//     auto mx_ptr = reinterpret_cast<gsl_matrix *>(mx._ptr);
-//     auto vc_ptr = reinterpret_cast<gsl_vector *>(vc._ptr);
-//     auto rs_ptr = reinterpret_cast<gsl_vector *>(rs._ptr);
-//     auto pm_ptr = gsl_permutation_alloc(vc._size);
-//     int s;
-//     gsl_linalg_LU_decomp(mx_ptr, pm_ptr, &s);
-//     gsl_linalg_LU_solve(mx_ptr, pm_ptr, vc_ptr, rs_ptr);
-//     return rs;
-// }
+vector solve(matrix const &mx, vector const &vc)
+{
+    vector rs(vc.size());
+    auto mx_ptr = cast_ptr<gsl_matrix>(mx._ptr);
+    auto vc_ptr = cast_ptr<gsl_vector>(vc._ptr);
+    auto rs_ptr = cast_ptr<gsl_vector>(rs._ptr);
+    auto pm_ptr = gsl_permutation_alloc(vc.size());
+    int s;
+    gsl_linalg_LU_decomp(mx_ptr, pm_ptr, &s);
+    gsl_linalg_LU_solve(mx_ptr, pm_ptr, vc_ptr, rs_ptr);
+    return rs;
+}
